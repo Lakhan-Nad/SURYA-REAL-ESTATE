@@ -102,7 +102,15 @@ route.post("/edited/:url", upload.any(), async (req, res, next) => {
 
 route.get("/admin/delete/:url", async (req, res, next) => {
   try {
-    let x = await blog.destroy({ where: { url: { [Op.eq]: req.params.url } } });
+    let data = await blog.findByPk(req.params.url);
+    if (data) {
+      let x = await blog.destroy({
+        where: { url: { [Op.eq]: req.params.url } },
+      });
+      if (data.img != defaultImg) {
+        del.sync(data.img);
+      }
+    }
     res.redirect("/blog/admin/home");
   } catch (err) {
     next(err);
