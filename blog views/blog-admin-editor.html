@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("headsection.ejs") %>
+  </head>
+
+  <body>
+    <h1 style="text-align: center;">Blog | Article Editor</h1>
+    <br />
+    <a href="./blog-admin-home.html"
+      ><button type="button" class="btn btn-danger btn-lg">
+        Back to Admin Home View
+      </button></a
+    >
+    <br />
+    <br />
+    <div class="form-group">
+      <label for="usr">Title</label>
+      <input type="text" class="form-control" id="title" />
+    </div>
+    <div class="form-group">
+      <label for="pwd">Description</label>
+      <input type="text" class="form-control" id="desc" />
+    </div>
+    <div class="input-group">
+      <!-- <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+        </div> -->
+      <div class="custom-file">
+        <input
+          type="file"
+          class="custom-file-input"
+          id="inputGroupFile01"
+          aria-describedby="inputGroupFileAddon01"
+        />
+        <label class="custom-file-label" for="inputGroupFile01"
+          >Choose image to upload...</label
+        >
+      </div>
+    </div>
+    <br />
+    <div class="form-group">
+      <label for="comment">Write your article here: </label>
+      <textarea class="form-control" rows="5" id="content"></textarea>
+    </div>
+    <div style="text-align: center;">
+      <button
+        type="button"
+        class="btn btn-danger btn-lg"
+        style="margin-right: 3%;"
+        id="confirm-discard"
+      >
+        Discard
+      </button>
+      <button type="button" class="btn btn-success btn-lg" id="confirm-save">
+        Save
+      </button>
+    </div>
+  </body>
+</html>
