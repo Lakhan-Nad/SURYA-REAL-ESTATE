@@ -52,7 +52,7 @@ route.post("/", upload.any(), async (req, res, next) => {
       content: req.body.content,
     };
     await blog.create(data);
-    res.redirect("/");
+    res.redirect("blog/admin/home");
   } catch (err) {
     next(err);
   }
@@ -62,11 +62,7 @@ route.get("/:url", async (req, res, next) => {
   try {
     let data = await blog.findByPk(req.params.url);
     if (data) {
-      upload.any()(req, res, next);
-      data.description = req.body.description || data.description;
-      data.content = req.body.content || data.content;
-      if (req.files) {
-      }
+      res.render("blog", { data });
     } else {
       res.json({
         success: false,
@@ -78,7 +74,7 @@ route.get("/:url", async (req, res, next) => {
   }
 });
 
-route.put("/:url", upload.any(), async (req, res, next) => {
+route.post("/edited/:url", upload.any(), async (req, res, next) => {
   try {
     let data = await blog.findByPk(req.params.url);
     if (data) {
@@ -91,11 +87,8 @@ route.put("/:url", upload.any(), async (req, res, next) => {
       data.content = req.body.content || data.content;
       data.title = req.body.title || data.title;
       data.description = req.body.description || data.description;
-      await blog.update(data, { where: { url: { [Op.eq]: req.body.url } } });
-      res.json({
-        success: true,
-        blog: data,
-      });
+      await blog.update(data, { where: { url: { [Op.eq]: req.params.url } } });
+      res.redirect("/blog/admin/home");
     } else {
       res.json({
         success: false,
@@ -107,15 +100,44 @@ route.put("/:url", upload.any(), async (req, res, next) => {
   }
 });
 
-route.delete("/:url", async (req, res, next) => {
+route.get("/admin/delete/:url", async (req, res, next) => {
   try {
-    let x = await blog.destroy({ where: { url: { [Op.eq]: req.body.url } } });
-    res.json({
-      success: x > 0,
-    });
+    let x = await blog.destroy({ where: { url: { [Op.eq]: req.params.url } } });
+    res.redirect("/blog/admin/home");
   } catch (err) {
     next(err);
   }
+});
+
+route.get("/admin/edit/:url", async (req, res, next) => {
+  try {
+    let data = await blog.findByPk(req.params.url);
+    if (data) {
+      res.render("admin-edit-blog", { data });
+    } else {
+      res.json({
+        success: false,
+        blog: null,
+      });
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
+route.get("/admin/home", async (req, res, next) => {
+  try {
+    let data = await blog.findAll({
+      attributes: ["title", "createdAt", "url"],
+    });
+    res.render("admin-blog-home", { data });
+  } catch (err) {
+    next(err);
+  }
+});
+
+route.get("/admin/add", async (req, res, next) => {
+  res.render("admin-add-blog");
 });
 
 module.exports = route;
