@@ -1,7 +1,8 @@
-import express from "express";
-import http from "http";
-import cors from "cors";
-import path from "path";
+const express = require("express");
+const http = require("http");
+const cors = require("cors");
+const path = require("path");
+const blogRouter = require("./blog.js");
 
 const app = express();
 
@@ -23,6 +24,8 @@ app.get("/index", (req, res, next) => {
 app.get("/:static", (req, res, next) => {
   res.render(req.params.static);
 });
+
+app.use("/blog", blogRouter);
 
 const server = http.createServer(app);
 server.listen(3000, () => {
