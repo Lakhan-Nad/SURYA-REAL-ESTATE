@@ -25,6 +25,10 @@ Blog.init(
       type: DataTypes.TEXT,
       allowNull: false,
     },
+    imgSrc: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   {
     sequelize,

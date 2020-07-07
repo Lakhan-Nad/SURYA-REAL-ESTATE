@@ -8,6 +8,7 @@ const defaultImg = path.join(
   process.cwd(),
   "public/uploads/blogs/default-default.jpg"
 );
+const defaultImgName = "default-default.jpg";
 
 function processTitle(title) {
   title = title.toLowerCase().trim();
@@ -29,6 +30,17 @@ let storage = multer.diskStorage({
 
 let upload = multer({ storage: storage });
 
+route.get("/", async (req, res, next) => {
+  try {
+    let data = await blog.findAll({
+      order: [["createdAt", "DESC"]],
+    });
+    res.render("blog-home", { data });
+  } catch (err) {
+    next(err);
+  }
+});
+
 route.post("/", upload.any(), async (req, res, next) => {
   try {
     req.body.url = processTitle(req.body.title);
@@ -42,6 +54,7 @@ route.post("/", upload.any(), async (req, res, next) => {
     if (!file) {
       file = {
         path: defaultImg,
+        filename: defaultImgName,
       };
     }
     let data = {
@@ -50,6 +63,7 @@ route.post("/", upload.any(), async (req, res, next) => {
       url: req.body.url,
       img: file.path,
       content: req.body.content,
+      imgSrc: `/uploads/blogs/${file.filename}`,
     };
     await blog.create(data);
     res.redirect("blog/admin/home");
@@ -78,11 +92,12 @@ route.post("/edited/:url", upload.any(), async (req, res, next) => {
   try {
     let data = await blog.findByPk(req.params.url);
     if (data) {
-      if (req.files) {
+      if (req.files.length > 0) {
         if (data.img != defaultImg) {
           del.sync(data.img);
-          data.img = req.files[0].path;
         }
+        data.img = req.files[0].path;
+        data.imgSrc = `/uploads/blogs/${req.files[0].filename}`;
       }
       data.content = req.body.content || data.content;
       data.title = req.body.title || data.title;

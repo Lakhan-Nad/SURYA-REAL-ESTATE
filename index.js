@@ -22,7 +22,11 @@ app.get("/index", (req, res, next) => {
 });
 
 app.get("/:static", (req, res, next) => {
-  res.render(req.params.static);
+  if (req.params.static == "blog") {
+    next();
+  } else {
+    res.render(req.params.static);
+  }
 });
 
 app.use("/blog", blogRouter);

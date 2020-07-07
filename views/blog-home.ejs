@@ -28,35 +28,33 @@
         | BlogPost</span
       >
     </div>
-
     <div class="row">
       <div class="leftcolumn">
-        <!-- Card div and its contents are the article preview component -->
         <% for(x of data) { %>
         <div class="card">
-          <h2><%= x.title></h2>
-          <h5><%= x.description %>, <%= x.createdAt %></h5>
-          <div class="fakeimg" style="height: 200px;"><img src="<%= x.imgSrc %>"</div>
-          <p class="content">
-            <%= x.content &>
+          <h2><%= x.title %></h2>
+          <h5><%= x.description %></h5>
+          <h5><%= x.createdAt %></h5>
+          <div class="img-fluid" style="height: 200px;">
+            <img src="<%= x.imgSrc %>" style="width: 100%; height: inherit;" />
+          </div>
+          <p class="content text-truncate text-justify">
+            <%= x.content %>
           </p>
           <button type="button" class="btn btn-outline-secondary buttonStyle">
-            <a href="<%= `/blog/${x.url}` %>" class="stretched-link cardLink">Read More</a>
+            <a href="<%= `/blog/${x.url}` %>" class="stretched-link cardLink"
+              >Read More</a
+            >
           </button>
         </div>
         <% } %>
+      </div>
       <div class="rightcolumn">
         <div class="card">
           <h2>About Surya</h2>
           <div class="fakeimg" style="height: 100px;">Image</div>
           <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
         </div>
-        <!-- <div class="card">
-                <h3>Popular Post</h3>
-                <div class="fakeimg">Image</div><br>
-                <div class="fakeimg">Image</div><br>
-                <div class="fakeimg">Image</div>
-            </div> -->
         <div class="card">
           <h3>Follow Us</h3>
           <p>Twitter</p>

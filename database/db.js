@@ -10,6 +10,7 @@ const sequelize = new Sequelize({
   query: {
     raw: true,
   },
+  logging: false,
 });
 
 module.exports = sequelize;

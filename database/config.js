@@ -3,6 +3,7 @@ let config = {
   username: "userPHP",
   password: "",
   dialect: "mysql",
+  host: "localhost",
 };
 
 module.exports = config;
