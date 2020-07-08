@@ -7346,15 +7346,13 @@
                     height: e.outerHeight(!0),
                     float: e.css("float"),
                   },
-                  n = t("<div></div>")
-                    .addClass("ui-effects-wrapper")
-                    .css({
-                      fontSize: "100%",
-                      background: "transparent",
-                      border: "none",
-                      margin: 0,
-                      padding: 0,
-                    }),
+                  n = t("<div></div>").addClass("ui-effects-wrapper").css({
+                    fontSize: "100%",
+                    background: "transparent",
+                    border: "none",
+                    margin: 0,
+                    padding: 0,
+                  }),
                   s = { width: e.width(), height: e.height() },
                   o = document.activeElement;
                 try {
@@ -8703,14 +8701,11 @@
                     return 0 === parseInt(t(this).attr("tabIndex"), 10);
                   })
                   .attr("tabIndex", -1),
-            i
-              .attr("aria-hidden", "false")
-              .prev()
-              .attr({
-                "aria-selected": "true",
-                "aria-expanded": "true",
-                tabIndex: 0,
-              });
+            i.attr("aria-hidden", "false").prev().attr({
+              "aria-selected": "true",
+              "aria-expanded": "true",
+              tabIndex: 0,
+            });
         },
         _animate: function (t, e, i) {
           var n,
@@ -13204,15 +13199,15 @@
             /^(canvas|textarea|input|select|button|img)$/i
           ) &&
             (this.element.wrap(
-              t(
-                "<div class='ui-wrapper' style='overflow: hidden;'></div>"
-              ).css({
-                position: this.element.css("position"),
-                width: this.element.outerWidth(),
-                height: this.element.outerHeight(),
-                top: this.element.css("top"),
-                left: this.element.css("left"),
-              })
+              t("<div class='ui-wrapper' style='overflow: hidden;'></div>").css(
+                {
+                  position: this.element.css("position"),
+                  width: this.element.outerWidth(),
+                  height: this.element.outerHeight(),
+                  top: this.element.css("top"),
+                  left: this.element.css("left"),
+                }
+              )
             ),
             (this.element = this.element
               .parent()
@@ -17879,13 +17874,11 @@
         this._setOptionDisabled(this.options.disabled),
           this._setupEvents(this.options.event),
           this._setupHeightStyle(this.options.heightStyle),
-          this.tabs
-            .not(this.active)
-            .attr({
-              "aria-selected": "false",
-              "aria-expanded": "false",
-              tabIndex: -1,
-            }),
+          this.tabs.not(this.active).attr({
+            "aria-selected": "false",
+            "aria-expanded": "false",
+            tabIndex: -1,
+          }),
           this.panels
             .not(this._getPanelForTab(this.active))
             .hide()
@@ -25442,13 +25435,11 @@
             Math.abs(t.positionsInArray[t.currentItem]) +
             t.positionsInArray[t.prevItem],
           a = Math.abs(t.positionsInArray[t.currentItem]) + t.itemWidth / 2;
-        t.$owlWrapper
-          .addClass("owl-origin")
-          .css({
-            "-webkit-transform-origin": a + "px",
-            "-moz-perspective-origin": a + "px",
-            "perspective-origin": a + "px",
-          });
+        t.$owlWrapper.addClass("owl-origin").css({
+          "-webkit-transform-origin": a + "px",
+          "-moz-perspective-origin": a + "px",
+          "perspective-origin": a + "px",
+        });
         var r,
           l = "webkitAnimationEnd oAnimationEnd MSAnimationEnd animationend";
         s
@@ -28178,27 +28169,5 @@ $(document).ready(function () {
         $("iframe.youtube-iframe").each(function (t) {
           $(this).attr("src", $(this).attr("src"));
         });
-      }),
-      $("#select_contact").change(function () {
-        $(".frm").hide(),
-          1 == $(this).val()
-            ? $("#buying_form").show()
-            : 2 == $(this).val()
-            ? $("#sobha_vendor").show()
-            : 3 == $(this).val()
-            ? $("#channel_partner").show()
-            : 4 == $(this).val()
-            ? $("#general_enquiries").show()
-            : 5 == $(this).val()
-            ? $("#media_enquiries").show()
-            : 6 == $(this).val()
-            ? $("#investor_enquiries").show()
-            : 7 == $(this).val() && $("#email_alerts").show();
-      }),
-      $("#select_sobha_offices").change(function () {
-        $(".offi").hide(),
-          $("#shoba_offices_" + $(this).val()).show(),
-          equalheight(".address-box li");
-      }),
-      $("#select_sobha_offices").val(2).change();
+      });
   });
