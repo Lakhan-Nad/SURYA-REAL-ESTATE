@@ -32,10 +32,33 @@ let upload = multer({ storage: storage });
 
 route.get("/", async (req, res, next) => {
   try {
+    const count = await blog.count();
+    const pageLimit = 5;
+    const maxPages =
+      Math.floor(count / pageLimit) + (count % pageLimit > 0 ? 1 : 0);
+    let page = req.query.page || 1;
+    if (page < 1) {
+      page = 1;
+    }
+    if (page > maxPages) {
+      page = maxPages;
+    }
+    let skip = (page - 1) * pageLimit;
+    let limit = count - skip > pageLimit ? pageLimit : count - skip;
+    let prev = true;
+    let next = true;
+    if (page == 1) {
+      prev = false;
+    }
+    if (page == maxPages) {
+      next = false;
+    }
     let data = await blog.findAll({
       order: [["createdAt", "DESC"]],
+      offset: skip,
+      limit: limit,
     });
-    res.render("blog-home", { data });
+    res.render("blog-home", { data, prev, next, pageNumber: Number(page) });
   } catch (err) {
     next(err);
   }
