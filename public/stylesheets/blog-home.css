@@ -1,119 +1,134 @@
-* {
-  box-sizing: border-box;
-}
-
-/* Add a gray background color with some padding */
-
 body {
-  font-family: "Open Sans", sans-serif;
-  padding: 20px;
-  background: #f1f1f1;
+    font-family: Arial;
+    padding: 20px;
+    background: #f1f1f1;
 }
+
 
 /* Header/Blog Title */
 
 .header {
-  padding: 30px;
-  font-size: 40px;
-  text-align: center;
-  background: white;
+    padding: 30px;
+    font-size: 40px;
+    text-align: center;
+    background: white;
 }
 
+
 /* Create two unequal columns that floats next to each other */
+
 
 /* Left column */
 
 .leftcolumn {
-  float: left;
-  width: 75%;
+    float: left;
+    width: 73%;
 }
+
 
 /* Right column */
 
 .rightcolumn {
-  float: left;
-  width: 25%;
-  padding-left: 20px;
+    float: left;
+    width: 25%;
+    padding-left: 20px;
 }
+
+
+/* Fake image */
+
+.fakeimg {
+    background-color: #aaa;
+    width: 90%;
+    padding: 20px;
+}
+
 
 /* Add a card effect for articles */
 
 .card {
-  background-color: white;
-  box-shadow: 0px 4px 4px 0px #cccccc;
-  padding: 20px;
-  margin-top: 20px;
+    background-color: white;
+    box-shadow: 0px 2px 2px #cccccc;
+    padding: 20px;
+    margin-top: 20px;
+    margin-left: 25px;
 }
+
 
 /* Clear floats after the columns */
 
 .row:after {
-  content: "";
-  display: table;
-  clear: both;
+    content: "";
+    display: table;
+    clear: both;
 }
+
 
 /* Footer */
 
 .footer {
-  padding: 20px;
-  text-align: center;
-  background: #ddd;
-  margin-top: 20px;
+    padding: 20px;
+    text-align: center;
+    background: #ddd;
+    margin-top: 20px;
 }
+
 
 /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
 
 @media screen and (max-width: 800px) {
-  .leftcolumn,
-  .rightcolumn {
-    width: 100%;
-    padding: 0;
-  }
+    .leftcolumn,
+    .rightcolumn {
+        width: 100%;
+        padding: 0;
+    }
 }
+
 
 /* Styling for Read More buttons */
 
 .buttonStyle {
-  width: 20% !important;
+    width: 20% !important;
 }
+
 
 /* Paragraph styling */
 
 .content {
-  padding: 2% 2% 0% 0%;
+    padding: 2% 2% 0% 0%;
 }
+
 
 /* To style the a tags wrapping the Read More buttons in the cards */
 
 .cardLink {
-  text-decoration: none !important;
-  color: #000;
-  opacity: 0.7;
+    text-decoration: none !important;
+    color: #000;
+    opacity: 0.7;
 }
 
 .cardLink:hover {
-  color: #fff;
-  opacity: 1;
+    color: #fff;
+    opacity: 1;
 }
 
 .icons {
-  /* float: right; */
-  font-size: 32px;
-  margin: 0 0 3% 3%;
+    /* float: right; */
+    font-size: 32px;
+    margin: 0 0 3% 3%;
 }
 
 .admin-buttons {
-  color: #000;
+    color: #000;
 }
 
 .admin-icons {
-  float: right !important;
-  text-align: center;
-  /* border: solid 1px; */
-  /* width: 15%; */
+    float: right !important;
+    text-align: center;
+    /* border: solid 1px; */
+    /* width: 15%; */
 }
 
 .newArticle {
-  text-align: center;
+    text-align: center;
 }
