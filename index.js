@@ -3,6 +3,7 @@ const http = require("http");
 const cors = require("cors");
 const path = require("path");
 const blogRouter = require("./blog.js");
+const contactRouter = require("./contact.js");
 
 const app = express();
 
@@ -30,7 +31,17 @@ app.get("/:static", (req, res, next) => {
 });
 
 app.use("/blog", blogRouter);
+app.use("/contact", contactRouter);
 
+app.use("*", async (req, res, next) => {
+  res.render("index");
+});
+
+app.use((err, req, res, next) => {
+  let message = err.message || "An Error Occurred";
+  let code = String(err.code || 500);
+  res.render("error", { message, code });
+});
 const server = http.createServer(app);
 server.listen(3000, () => {
   console.log("Server started");

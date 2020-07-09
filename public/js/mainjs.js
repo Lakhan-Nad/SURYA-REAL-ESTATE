@@ -27392,15 +27392,6 @@
       u
     );
   })(this, this.document));
-var target,
-  csrfName = "",
-  csrfHash = "";
-$(document).ready(function () {
-  $.get(site_url + "home/get_csrf_token_name", function (t) {
-    var e = JSON.parse(t);
-    (csrfName = e.csrfName), (csrfHash = e.csrfHash);
-  });
-});
 var interval,
   scrollval,
   currentscrollval,
