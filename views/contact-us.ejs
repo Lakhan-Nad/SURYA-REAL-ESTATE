@@ -275,6 +275,7 @@
             issue: form.issue.value,
             countryCode: form.countryCode.value,
           };
+          form.reset();
           selfPost(data, window.location.origin + "/contact");
         }
       }

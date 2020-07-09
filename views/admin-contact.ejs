@@ -28,7 +28,7 @@
 <body>
     <div class="header">
         <h1 class="text-center">Contact-Us | ADMIN PORTAL</h1>
-        <a href="./blog-admin-login.html" class="float-right"><button type="button" class="btn btn-dark">Sign-Out</button></a>
+        <a href="/admin-login" class="float-right"><button type="button" class="btn btn-dark">Sign-Out</button></a>
     </div>
 
     <br />
@@ -46,6 +46,7 @@
                     <th>Country Code</th>
                     <th>Phone Number</th>
                     <th>Message</th>
+                    <th>Date</th>
                 </tr>
             </thead>
             <tbody>
@@ -77,6 +78,7 @@
                             </div>
                         </div>
                     </td>
+                    <td><%= (new Date(x.createdAt)).toLocaleString() %></td>
                 </tr>
                 <% } %>
             </tbody>
