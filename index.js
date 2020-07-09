@@ -23,10 +23,14 @@ app.get("/index", (req, res, next) => {
 });
 
 app.get("/:static", (req, res, next) => {
-  if (req.params.static == "blog") {
+  try {
+    if (req.params.static === "blog" || req.params.static === "contact") {
+      next();
+    } else {
+      res.render(req.params.static);
+    }
+  } catch (err) {
     next();
-  } else {
-    res.render(req.params.static);
   }
 });
 
@@ -34,7 +38,7 @@ app.use("/blog", blogRouter);
 app.use("/contact", contactRouter);
 
 app.use("*", async (req, res, next) => {
-  res.render("index");
+  res.redirect("/index");
 });
 
 app.use((err, req, res, next) => {
@@ -42,6 +46,7 @@ app.use((err, req, res, next) => {
   let code = String(err.code || 500);
   res.render("error", { message, code });
 });
+
 const server = http.createServer(app);
 server.listen(3000, () => {
   console.log("Server started");

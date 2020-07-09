@@ -62,7 +62,6 @@
               id="firstName"
               class="form-control"
               placeholder="Name"
-              required
             />
             <input
               type="text"
@@ -70,7 +69,6 @@
               id="email"
               class="form-control"
               placeholder="Email"
-              required
             />
             <select name="countryCode" class="form-control" id="countryCode">
               <option value="376"> ANDORRA (+376) </option>
@@ -323,7 +321,6 @@
               placeholder="Phone"
               id="phoneNumber"
               class="form-control"
-              required
             />
             <br />
             <textarea
@@ -333,10 +330,9 @@
               name="message"
               placeholder="Message..."
             ></textarea>
-            <button type="button" id="submitBtn" class="btn btn-default">
+            <button type="submit" id="submitBtn" class="btn btn-default">
               Submit
             </button>
-            <input type="submit" hidden />
           </form>
         </div>
       </div>
@@ -474,7 +470,7 @@
       let phone = document.getElementById("phoneNumber");
       let message = document.getElementById("message");
 
-      function formValidate() {
+      function formValidate(event) {
         console.log("kandjsbdn");
         let emailRegex = new RegExp(
           /^([a-zA-Z0-9_.-]+)@([a-zA-Z0-9_.-]+).([a-zA-Z]{2,5})$/
@@ -501,7 +497,6 @@
           return false;
         }
         document.getElementById("message_form").submit();
-        return true;
       }
       email.addEventListener("focus", function () {
         if (this.classList.contains("error")) {

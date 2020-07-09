@@ -46,22 +46,21 @@
                     <th>Country Code</th>
                     <th>Phone Number</th>
                     <th>Message</th>
-                    <th>Details</th>
                 </tr>
             </thead>
             <tbody>
+                <% for(x of data) { %>
                 <tr>
-                    <td>Mohit</td>
-                    <td>mohithotwani01@gmail.com</td>
-                    <td>Buying a Property</td>
-                    <td>+91</td>
-                    <td>9509995499</td>
+                    <td><%= x.firstName %></td>
+                    <td><% x.email %></td>
+                    <td><%= x.issue %></td>
+                    <td><%= `+${x.countryCode}` %></td>
+                    <td><%= x.phoneNumber %></td>
                     <td><button type="button" class="btn btn-link" data-toggle="modal"
-                            data-target="#exampleModalCenter">
+                            data-target="<%= `#id${x.id}` %>">
                             View
                         </button>
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                        <div class="modal fade" id="<%= `id${x.id}` %>" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
@@ -72,13 +71,14 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis distinctio voluptas similique. Dolor quam aperiam enim molestias asperiores harum, magnam amet. Officiis, quas ducimus repudiandae enim a sapiente alias hic? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et, error ipsum doloremque nihil enim numquam aliquid sunt corrupti minima tenetur assumenda alias, sint dicta corporis omnis. Deserunt dignissimos voluptatum nostrum!
+                                        <%= x.message %>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </td>
                 </tr>
+                <% } %>
             </tbody>
 
         </table>
