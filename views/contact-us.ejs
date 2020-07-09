@@ -38,11 +38,12 @@
         <div class="ttl_cap">Contact Us</div>
         <div class="div-form">
           <form
-            action="/contact"
+            action="#"
             method="post"
             accept-charset="utf-8"
             id="message_form"
             enctype="application/x-www-form-urlencoded"
+            onsubmit="return false"
           >
             <h1>What can we help you with?</h1>
             <select class="form-control" name="issue" id="issue">
@@ -87,10 +88,10 @@
               name="message"
               placeholder="Message..."
             ></textarea>
-            <button type="submit" id="submitBtn" class="btn btn-default">
-              Submit
-            </button>
           </form>
+          <button type="button" id="submitBtn" class="btn btn-default">
+            Submit
+          </button>
         </div>
       </div>
       <div class="address-div">
@@ -218,63 +219,81 @@
     </section>
     <%- include("footer.ejs") %>
     <script type="text/javascript">
-      document
-        .getElementById("submitBtn")
-        .addEventListener("click", formValidate);
-
-      let email = document.getElementById("email");
-      let name = document.getElementById("firstName");
-      let phone = document.getElementById("phoneNumber");
-      let message = document.getElementById("message");
-
+      let formx = document.getElementById("message_form");
+      let submitBtn = document.getElementById("submitBtn");
+      submitBtn.onclick = formValidate;
+      formx.email.addEventListener("focus", function () {
+        if (this.classList.contains("error")) {
+          this.classList.remove("error");
+        }
+      });
+      formx.phoneNumber.addEventListener("focus", function () {
+        if (this.classList.contains("error")) {
+          this.classList.remove("error");
+        }
+      });
+      formx.message.addEventListener("focus", function () {
+        if (this.classList.contains("error")) {
+          this.classList.remove("error");
+        }
+      });
+      formx.firstName.addEventListener("focus", function () {
+        if (this.classList.contains("error")) {
+          this.classList.remove("error");
+        }
+      });
       function formValidate(event) {
-        console.log("kandjsbdn");
+        let form = document.getElementById("message_form");
         let emailRegex = new RegExp(
           /^([a-zA-Z0-9_.-]+)@([a-zA-Z0-9_.-]+).([a-zA-Z]{2,5})$/
         );
         let phoneRegex = new RegExp(/^[0-9]{10}$/);
-
-        if (name.value.length == 0) {
-          name.classList.add("error");
-          return false;
-        }
-
-        if (email.value.length == 0 || !email.value.match(emailRegex)) {
+        if (form.firstName.value.length == 0) {
+          form.firstName.classList.add("error");
+          console.log("Name");
+        } else if (
+          form.email.value.length == 0 ||
+          emailRegex.test(form.email.value) == false
+        ) {
           email.classList.add("error");
-          return false;
+          console.log("Email");
+        } else if (
+          form.phoneNumber.value.length == 0 ||
+          phoneRegex.test(form.phoneNumber.value) == false
+        ) {
+          form.phoneNumber.classList.add("error");
+          console.log("phone");
+        } else if (form.message.value.length == 0) {
+          form.message.placeholder = "Write Something....";
+          console.log("message");
+        } else {
+          let data = {
+            phoneNumber: form.phoneNumber.value,
+            firstName: form.firstName.value,
+            email: form.email.value,
+            message: form.message.value,
+            issue: form.issue.value,
+            countryCode: form.countryCode.value,
+          };
+          selfPost(data, window.location.origin + "/contact");
         }
-
-        if (phone.value.length == 0 || !phone.value.match(phoneRegex)) {
-          phone.classList.add("error");
-          return false;
-        }
-
-        if (message.innerText.length == 0) {
-          message.placeholder = "Write Something....";
-          return false;
-        }
-        document.getElementById("message_form").submit();
       }
-      email.addEventListener("focus", function () {
-        if (this.classList.contains("error")) {
-          this.classList.remove("error");
+      function selfPost(data, path) {
+        let form = document.createElement("form");
+        form.method = "post";
+        form.action = path;
+
+        for (x in data) {
+          let hiddenField = document.createElement("input");
+          hiddenField.type = "hidden";
+          hiddenField.name = x;
+          hiddenField.value = data[x];
+
+          form.appendChild(hiddenField);
         }
-      });
-      phone.addEventListener("focus", function () {
-        if (this.classList.contains("error")) {
-          this.classList.remove("error");
-        }
-      });
-      message.addEventListener("focus", function () {
-        if (this.classList.contains("error")) {
-          this.classList.remove("error");
-        }
-      });
-      name.addEventListener("focus", function () {
-        if (this.classList.contains("error")) {
-          this.classList.remove("error");
-        }
-      });
+        document.body.appendChild(form);
+        form.submit();
+      }
     </script>
   </body>
 </html>
