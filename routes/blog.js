@@ -1,9 +1,11 @@
 const express = require("express");
 const multer = require("multer");
 const path = require("path");
-const blog = require("./database/models/blog.model.js");
+const blog = require("../database/models/blog.model.js");
 const { Op } = require("sequelize");
 const del = require("del");
+const adminCheck = require("../middleware/adminCheck.js").verify;
+
 const defaultImg = path.join(
   process.cwd(),
   "public/uploads/blogs/default-default.jpg"
@@ -64,7 +66,7 @@ route.get("/", async (req, res, next) => {
   }
 });
 
-route.post("/", upload.any(), async (req, res, next) => {
+route.post("/", adminCheck, upload.any(), async (req, res, next) => {
   try {
     req.body.url = processTitle(req.body.title);
     if (blog.count({ where: { url: { [Op.eq]: req.body.url } } }) > 0) {
@@ -95,23 +97,7 @@ route.post("/", upload.any(), async (req, res, next) => {
   }
 });
 
-route.get("/:url", async (req, res, next) => {
-  try {
-    let data = await blog.findByPk(req.params.url);
-    if (data) {
-      res.render("blog", { data });
-    } else {
-      res.json({
-        success: false,
-        blog: null,
-      });
-    }
-  } catch (err) {
-    next(err);
-  }
-});
-
-route.post("/edited/:url", upload.any(), async (req, res, next) => {
+route.post("/edited/:url", adminCheck, upload.any(), async (req, res, next) => {
   try {
     let data = await blog.findByPk(req.params.url);
     if (data) {
@@ -138,7 +124,7 @@ route.post("/edited/:url", upload.any(), async (req, res, next) => {
   }
 });
 
-route.get("/admin/delete/:url", async (req, res, next) => {
+route.get("/admin/delete/:url", adminCheck, async (req, res, next) => {
   try {
     let data = await blog.findByPk(req.params.url);
     if (data) {
@@ -155,7 +141,7 @@ route.get("/admin/delete/:url", async (req, res, next) => {
   }
 });
 
-route.get("/admin/edit/:url", async (req, res, next) => {
+route.get("/admin/edit/:url", adminCheck, async (req, res, next) => {
   try {
     let data = await blog.findByPk(req.params.url);
     if (data) {
@@ -171,7 +157,7 @@ route.get("/admin/edit/:url", async (req, res, next) => {
   }
 });
 
-route.get("/admin/home", async (req, res, next) => {
+route.get("/admin/home", adminCheck, async (req, res, next) => {
   try {
     let data = await blog.findAll({
       attributes: ["title", "createdAt", "url"],
@@ -182,7 +168,7 @@ route.get("/admin/home", async (req, res, next) => {
   }
 });
 
-route.get("/admin/add", async (req, res, next) => {
+route.get("/admin/add", adminCheck, async (req, res, next) => {
   res.render("admin-add-blog");
 });
 

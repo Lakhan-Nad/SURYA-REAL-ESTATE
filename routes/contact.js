@@ -1,5 +1,6 @@
 const express = require("express");
-const Contact = require("./database/models/contacts.model.js");
+const Contact = require("../database/models/contacts.model.js");
+const adminCheck = require("../middleware/adminCheck.js").verify;
 const app = express.Router();
 
 app.get("/", async (req, res, next) => {
@@ -10,8 +11,10 @@ app.get("/", async (req, res, next) => {
     next(err);
   }
 });
+
 app.post(
   "/",
+  adminCheck,
   express.urlencoded({ extended: true }),
   async (req, res, next) => {
     try {
