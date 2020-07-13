@@ -3,13 +3,17 @@ const route = express.Router();
 const adminCheck = require("../middleware/adminCheck.js");
 
 route.get("/", adminCheck.verify, async (req, res, next) => {
-  res.render("admin-home");
+  res.render("admin-home", function (err, html) {
+    if (err) {
+      next();
+    } else {
+      res.send(html);
+    }
+  });
 });
 
 route.post(
   "/login",
-  adminCheck,
-  forwardAuth,
   express.urlencoded({ extended: true }),
   async (req, res, next) => {
     let username = req.body.username || null;
@@ -19,17 +23,23 @@ route.post(
       password === process.env.adminPass
     ) {
       req.session.role = "admin";
-      req.session.save();
-      res.redirect("/admin");
+      req.session.save(function (err) {
+        if (err) {
+          next(err);
+        } else {
+          res.redirect("/admin");
+        }
+      });
+    } else {
+      res.redirect("/login");
     }
-    res.render("admin-login", { message: "Invalid Details" });
   }
 );
 
 route.get("/logout", adminCheck.verify, async (req, res, next) => {
   req.session.role = undefined;
-  req.session.save();
-  res.redirect("/admin-login");
+  await req.session.save();
+  res.redirect("/login");
 });
 
 module.exports = route;

@@ -8,6 +8,7 @@ const sessionStore = require("connect-session-sequelize")(session.Store);
 const blogRouter = require("./routes/blog.js");
 const contactRouter = require("./routes/contact.js");
 const adminRouter = require("./routes/admin.js");
+const adminCheck = require("./middleware/adminCheck.js");
 
 let sequelizeStore = new sessionStore({
   db: require("./database/db"),
@@ -49,11 +50,19 @@ app.get("/:static", (req, res, next) => {
       req.params.static === "admin"
     ) {
       next();
+    } else if (req.params.static.includes("admin")) {
+      next();
     } else {
-      res.render(req.params.static, { message: "" });
+      res.render(req.params.static, function (err, html) {
+        if (err) {
+          next();
+        } else {
+          res.send(html);
+        }
+      });
     }
   } catch (err) {
-    next();
+    next(err);
   }
 });
 

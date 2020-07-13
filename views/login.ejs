@@ -7,7 +7,7 @@
       href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../public/stylesheets/blog-admin-login.css" />
+    <link rel="stylesheet" href="/public/stylesheets/blog-admin-login.css" />
     <!-- Latest compiled and minified CSS -->
     <link
       rel="stylesheet"
@@ -22,22 +22,26 @@
       integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
       crossorigin="anonymous"
     ></script>
-    <title>Blog Admin Login | Surya NestBuild Ltd.</title>
+    <title>Admin Login | Surya NestBuild Ltd.</title>
   </head>
 
   <body>
     <div class="container" style="text-align: center;">
       <div class="vertical-center">
-        <h1>Surya Blog | Admin Login</h1>
+        <h1>Surya| Admin Login</h1>
         <br />
         <br />
-        <form action="#">
+        <form
+          action="/admin/login"
+          method="post"
+          enctype="application/x-www-form-urlencoded"
+        >
           <label for="username">Username:</label>
           <input type="text" id="username" name="username" />
           <br />
           <br />
           <label for="pwd">Password:&nbsp</label>
-          <input type="password" id="pwd" name="pwd" />
+          <input type="password" id="pwd" name="password" />
           <br />
           <br />
           <input type="submit" value="Log In" id="submitbtn" />
