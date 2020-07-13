@@ -8,7 +8,6 @@ const sessionStore = require("connect-session-sequelize")(session.Store);
 const blogRouter = require("./routes/blog.js");
 const contactRouter = require("./routes/contact.js");
 const adminRouter = require("./routes/admin.js");
-const adminCheck = require("./middleware/adminCheck.js");
 
 let sequelizeStore = new sessionStore({
   db: require("./database/db"),

@@ -3,7 +3,7 @@ const Contact = require("../database/models/contacts.model.js");
 const adminCheck = require("../middleware/adminCheck.js").verify;
 const app = express.Router();
 
-app.get("/", async (req, res, next) => {
+app.get("/", adminCheck, async (req, res, next) => {
   try {
     let data = await Contact.findAll({ order: [["id", "DESC"]] });
     res.render("admin-contact", { data });
