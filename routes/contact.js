@@ -14,7 +14,6 @@ app.get("/", adminCheck, async (req, res, next) => {
 
 app.post(
   "/",
-  adminCheck,
   express.urlencoded({ extended: true }),
   async (req, res, next) => {
     try {
